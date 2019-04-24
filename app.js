@@ -28,6 +28,14 @@ cameraTrigger.onclick = function() {
     cameraSensor.getContext("2d").drawImage(cameraView, 0, 0);
     cameraOutput.src = cameraSensor.toDataURL("image/webp");
     Canvas2Image.saveAsJPEG(cameraSensor,cameraSensor.width , cameraSensor.height);
+    
+    var image = Canvas2Image.convertToPNG(canvas);
+    var image_data = $(image).attr('src');
+    //var image_data = cameraSensor.toDataURL("image/png");
+    $.ajax({
+              url: 'localhost',
+              data:{ image: image_data}
+              });
     cameraOutput.classList.add("taken");
     // track.stop();
 };
